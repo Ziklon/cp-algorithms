@@ -1,9 +1,11 @@
-#include "main/collections/UnionFind.hpp"
+#include "main/collections/union_find.hpp"
 #include "gtest/gtest.h"
 
 TEST(union_find_test, Creation) {
     UnionFind uf(5);
     EXPECT_EQ(5, uf.size());
+    vector<int> seq(5, 1);
+    seq[5]++;
 }
 
 TEST(union_find_test, Join) {

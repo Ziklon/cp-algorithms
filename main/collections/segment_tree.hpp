@@ -5,21 +5,21 @@
 template<typename num_t>
 class SegmentTree {
     protected:
-        const num_t infinite;
         const int size;
-        vector<num_t> tree;
         function<num_t(const num_t&, num_t)> joinValue;
         function<num_t(const num_t&, num_t)> accumulate;
-
+        const num_t infinite;
+        vector<num_t> tree; 
+        
     public:
         SegmentTree(vector<num_t> &arr,
-                    const function<num_t(num_t, num_t)> &joinValue,
-                    const function<num_t(num_t, num_t)> &accumulate,
-                    const num_t infinite) :
+                    const function<num_t(num_t, num_t)> & _joinValue,
+                    const function<num_t(num_t, num_t)> & _accumulate,
+                    const num_t _infinite) :
             size(sz(arr)),
-            joinValue(joinValue),
-            accumulate(accumulate),
-            infinite(infinite){
+            joinValue(_joinValue),
+            accumulate(_accumulate),
+            infinite(_infinite){
             #ifdef LOCAL
                 assert(size);
             #endif
@@ -27,16 +27,16 @@ class SegmentTree {
             build(0, 0, size - 1, arr);
         }
 
-        SegmentTree(int size,
-                    const function<num_t(const num_t&, num_t)> &joinValue,
-                    const function<num_t(const num_t&, num_t)> &accumulate,
-                    const num_t infinite):
-                    size(size),
-                    joinValue(joinValue),
-                    accumulate(accumulate),
-                    infinite(infinite){
-            this-> tree = vector<num_t>(size * 4);
-        }
+        SegmentTree(int _size,
+                    const function<num_t(const num_t&, num_t)> & _joinValue,
+                    const function<num_t(const num_t&, num_t)> & _accumulate,
+                    const num_t _infinite):
+                    size(_size),
+                    joinValue(_joinValue),
+                    accumulate(_accumulate),
+                    infinite(_infinite){
+            this-> tree = vector<num_t>(_size * 4);
+        } 
 
         num_t query(int start, int end) {
             #ifdef LOCAL

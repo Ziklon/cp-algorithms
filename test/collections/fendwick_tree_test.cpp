@@ -1,4 +1,4 @@
-#include "main/collections/FendwickTree.hpp"
+#include "main/collections/fendwick_tree.hpp"
 #include "gtest/gtest.h"
 
 TEST(fenwick_tree_test, SimpleQuery) {

@@ -1,5 +1,6 @@
 #pragma once
 #include "../common.hpp"
+
 template<class num_t>
 class FenwickTree {
     const int size;
@@ -7,13 +8,13 @@ class FenwickTree {
     function<num_t(const num_t&, num_t)> aggregator;
 
     public:
-        FenwickTree(int size, function<num_t(const num_t&, num_t)> aggregator = sum) : size(size), aggregator(aggregator) {
-            this->tree.assign(size, 0);
+        FenwickTree(int _size, function<num_t(const num_t&, num_t)> _aggregator = sum) : size(_size), aggregator(_aggregator) {
+            this->tree.assign(_size, 0);
         }
 
-        FenwickTree(vector<num_t> &arr, function<num_t(const num_t&, num_t)> aggregator = sum) : FenwickTree(arr.size(),
-                                                                                                    aggregator) {
-            for (int i = 0; i < arr.size(); ++i) {
+        FenwickTree(vector<num_t> &arr, function<num_t(const num_t&, num_t)> _aggregator = sum) : FenwickTree(arr.size(),
+                                                                                                    _aggregator) {
+            for (int i = 0; i < size; ++i) {
                 add(i, arr[i]);
             }
         }
@@ -23,11 +24,11 @@ class FenwickTree {
                 tree[idx] = aggregator(tree[idx], delta);
         }
 
-        int query(int l, int r) {
+        num_t query(int l, int r) {
             return query(r) - query(l - 1);
         }
-        int query(int r) {
-            int res = 0;
+        num_t query(int r) {
+            num_t res = 0;
             for (; r >= 0; r = (r & (r + 1)) - 1) {
                 res = aggregator(res, tree[r]);
             }
